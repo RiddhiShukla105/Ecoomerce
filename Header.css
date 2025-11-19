@@ -1,0 +1,116 @@
+.head{
+    /* background-color: rgb(176, 25, 80); */
+    background-color:#06b1c8e4;
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 0 5%;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding:0.3%;
+}
+.head ul{
+    display: flex;
+    list-style: none;
+    padding:0;
+    margin: auto;
+    justify-content: center;
+    font-size: 1.2rem;
+    gap:25px;
+    opacity: 0;                      /* Start invisible */
+  transform: translateY(50px);     /* Start slightly lower */
+  animation: slideUp 1.2s ease-out forwards;
+    
+}.head ul li{
+    margin-left: 8%;
+    padding-left: 12%;
+}
+
+.head2{
+     color: white;
+     text-decoration: none;
+     padding: 0;
+     margin: 0;
+     position: relative;
+     display: inline-block; 
+       transition: transform 0.2s ease, color 0.3s ease;
+       transform-origin: center;
+       
+}
+.i{
+     opacity: 0;                      /* Start invisible */
+  transform: translateY(50px);     /* Start slightly lower */
+  animation: slideUp 1.2s ease-out forwards;
+}
+.head2:hover{
+     color: #ff5757;
+     /* transition: color 0.3s ease; */
+     transform: scale(1.2);
+}
+.head2.active{
+    text-decoration: underline;
+    color:white;
+    font-weight: 800;
+}
+@media only screen and (max-width: 600px) {
+    nav{
+    display: flex;
+    justify-content: space-between;
+    padding:0;
+}
+    .ekart{
+       font-size: 26px;
+    }
+    .head{
+        padding:0;
+    }
+  .head ul{
+    gap:0;
+    font-size:1rem;
+}
+.head ul li{
+    gap:8px;
+    margin-left: 3%;
+    padding-left: 3%;
+}
+}
+
+@media only screen and (min-width: 600px) {
+     .head{
+        padding:0 5%;
+    }
+    .head ul{
+        gap:15px;
+    }
+.head ul li{
+    margin-left: 3%;
+    padding-left: 3%;
+}
+}
+@media only screen and (min-width: 768px) {
+    .head ul{
+        gap:25px;
+    }
+    .head ul li{
+    margin-left: 8%;
+    padding-left: 12%;
+}
+
+}
+
+
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);   /* Move up from 50px below */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);      /* End in normal position */
+  }
+}

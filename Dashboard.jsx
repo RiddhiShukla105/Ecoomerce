@@ -1,293 +1,258 @@
-//Admin page 
-//Admins control and manage the marketplace items and customer acounts.
-//customer account: show all users account details here (and show their orders)
-//Market place item update , show items 
-//search bar
-//item add or delete
+import React, { useState , useContext} from 'react'
+import axios from 'axios'
+import './Dashboard.css';
+import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../context/themeContext';
 
-import React, { useState, useEffect } from "react";
-import Sidenav from "./Sidenav";
-import Nav from "./Nav";
-import Card from "./Card_ui";
-import { Chart } from "primereact/chart";
 
-const Dashboard = () => {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
-  const [pieData, setPieData] = useState({});
-  const [piechartOptions, setpieChartOptions] = useState({});
 
-  /* ---------------- BAR CHART ---------------- */
-  useEffect(() => {
-    const data = {
-      labels: ["Q1", "Q2", "Q3", "Q4"],
-      datasets: [
-        {
-          label: "Sales",
-          data: [540, 325, 702, 620],
-          backgroundColor: function (context) {
-            const chart = context.chart;
-            const { ctx, chartArea } = chart;
-            if (!chartArea) return null;
-            const gradient = ctx.createLinearGradient(
-              0,
-              chartArea.bottom,
-              0,
-              chartArea.top
-            );
-            gradient.addColorStop(0, "rgba(54,162,235,0.4)");
-            gradient.addColorStop(1, "rgba(54,162,235,0.9)");
-            return gradient;
-          },
-          borderColor: "rgba(54,162,235,1)",
-          borderWidth: 2,
-          borderRadius: 10,
-        },
-      ],
-    };
 
-    const options = {
-      plugins: {
-        legend: { labels: { color: "#444" } },
-      },
-      scales: {
-        x: { ticks: { color: "#555" }, grid: { display: false } },
-        y: { ticks: { color: "#555" } },
-      },
-    };
+//mock data for the dashboard
 
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
+const userData={
+  name:"John Doe",
+  email:"john123@gmail.com",
+  role:"Administration"
+}
+const storeData=[
+  {title:'Total users',value:'2,842',change:'+12%',icon:'U'},
+  {title:'Total Revenue',value:'$24,751',change:'+18%',icon:'R'},
+  {title:'New Order',value:'1,427',change:'-3%',icon:'O'},
+  {title:'Support Tickets',value:'56',change:'+4%',icon:'ST'}
+];
+const recentActivities=[
+  {user:'Sara Connor',action:'Placed a New Order',time:'2 min ago'},
+   {user:'John Doe',action:'Updated Payment methods',time:'15 min ago'},
+    {user:'Pretty Moon',action:'Completed a purchase',time:'32 min ago'},
+     {user:'Mike Haisan',action:'Submitted a support ticket',time:'1 hour ago'}
+]
 
-  /* ---------------- PIE CHART ---------------- */
-  useEffect(() => {
-    const data = {
-      labels: ["A", "B"],
-      datasets: [
-        {
-          data: [325, 702],
-          backgroundColor: [
-            "rgba(54, 162, 235, 0.6)",
-            "rgba(255, 205, 86, 0.6)",
-          ],
-        },
-      ],
-    };
+const Dashboard=()=>{
+   const {theme,handleOnClick}=useContext(ThemeContext);
+  const[sidebarOpen,setSidebarOpen]=useState(true);
+  const[activepage,setActivePage]=useState('dashboard');
 
-    const options = {
-      plugins: {
-        legend: {
-          labels: { color: "#444", usePointStyle: true },
-        },
-      },
-    };
+  const toggleSidebar=()=>{
+    setSidebarOpen(!sidebarOpen);
+  }
 
-    setPieData(data);
-    setpieChartOptions(options);
-  }, []);
 
-  /* ---------------- CARD DATA ---------------- */
-  const cardData = [
-    {
-      title: "Orders Completed",
-      value: "2.5K",
-      icon: "pi pi-cart-plus",
-      iconBg: "bg-blue-500",
-    },
-    {
-      title: "Total Users",
-      value: "100K",
-      icon: "pi pi-users",
-      iconBg: "bg-sky-500",
-    },
-    {
-      title: "Revenue Generated",
-      value: "$2.5M",
-      icon: "pi pi-dollar",
-      iconBg: "bg-green-500",
-    },
-    {
-      title: "Sales",
-      value: "$5M",
-      icon: "pi pi-chart-line",
-      iconBg: "bg-orange-500",
-    },
-  ];
-
-  /* ---------------- SAMPLE DATA FOR TABLES ---------------- */
-  const recentOrders = [
-    { id: "#1021", customer: "Riddhi", amount: "$250", status: "Delivered" },
-    { id: "#1022", customer: "John Doe", amount: "$150", status: "Pending" },
-    { id: "#1023", customer: "Priya", amount: "$420", status: "Cancelled" },
-    { id: "#1024", customer: "Aman", amount: "$89", status: "Delivered" },
-  ];
-
-  const topProducts = [
-    { name: "Hoodie", sales: 532 },
-    { name: "Sneakers", sales: 413 },
-    { name: "T-Shirt", sales: 380 },
-    { name: "Jeans", sales: 290 },
-  ];
-
-  return (
+  return(
     <>
-      <Nav />
+      <div className={`dashboard-container ${theme==="dark"?"light":"dark"}  ${sidebarOpen?'sidebar-open':'sidebar-collapsed'}`}>
 
-      <div className="flex h-screen bg-gray-100">
-        <Sidenav />
+      <div className={`sidebar ${theme==="dark"?"light":"dark"}`}>
+        <div className="sidebar-header">
+          <h2>Dashboard</h2>
+          {/* <button className='logout-btn'><Link to='/sign' style={{color:"white",textDecoration:"none"}}>Logout</Link></button> */}
+          <button className='sidebar-toggle' onClick={toggleSidebar}>
+            █ █ █
+          </button>
+        </div>
+        <nav className='sidebar-nav'>
+          <ul>
+            <li className={activepage === 'dashboard'?'active':''}>
+            <a href="/" onClick={()=>setActivePage('dashboard')}>
+              Dashboard
+            </a>
 
-        <div className="flex-1 p-10 overflow-auto">
-          {/* CARDS */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-            {cardData.map((item, index) => (
-              <Card
-                key={index}
-                title={item.title}
-                value={item.value}
-                icon={item.icon}
-                iconBg={item.iconBg}
-              />
+            </li>
+             <li className={activepage === 'users'?'active':''}>
+            <a href="/user" onClick={()=>setActivePage('users')}>
+              Users
+            </a>
+
+            </li>
+
+            <li className={activepage === 'add_users'?'active':''}>
+            <a href="/add_user" onClick={()=>setActivePage('add_users')}>
+            Add_Users
+            </a>
+
+            </li>
+
+             <li className={activepage === 'orders'?'active':''}>
+            <a href="#orders" onClick={()=>setActivePage('orders')}>
+              Orders
+            </a>
+
+            </li>
+             <li className={activepage === 'products'?'active':''}>
+            <a href="/product" onClick={()=>setActivePage('products')}>
+              Products
+            </a>
+
+            </li>
+             <li className={activepage === 'setting'?'active':''}>
+            <a href="#setting" onClick={()=>setActivePage('setting')}>
+              Setting
+            </a>
+
+            </li>
+
+            <li className={activepage === 'setting'?'active':''}>
+            <a href="/sign" onClick={()=>setActivePage('sign')}>
+              Sign-Up
+            </a>
+
+            </li>
+
+             <button className={`btn ${theme==="light"? "btn-dark" : "btn-light"} bnt`} onClick={handleOnClick}>Theme-{theme==="dark"?"light":"dark"}</button>
+
+           
+          </ul>
+        </nav>
+      </div>
+
+        {/* MAin Content */}
+
+        <div className={`main-content ${theme==="dark"?"light":"dark"}`}>
+        {/* header */}
+
+        <header className='dashboard-header'>
+          <div className={`header-left ${theme==="dark"?"light":"dark"}`}>
+            <h1>Welcome back, {userData.name}</h1>
+          <p>Here's what's happening with your store today </p>
+          </div>
+          <div className="header-right">
+            <div className="search-bar">
+              <input type="search" name="" id="" />
+            </div>
+            <div className="user-menu">
+              <div className="user-info">
+                <span className={`user-name ${theme==="dark"?"light":"dark"}`}>{userData.name}</span>
+                <span className={`user-role ${theme==="dark"?"light":"dark"}`}>{userData.email}</span>
+              </div>
+              <div className="user-avtar">
+                {userData.name.charAt(0)}
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Stats Card */}
+
+          <div className="stats-grid">
+            {storeData.map((stat,index)=>(
+              <div key={index} className={`stat-card ${theme==="dark"?"light":"dark"}`}>
+              <div className={`stat-info ${theme==="dark"?"light":"dark"}`}>
+              <h3>{stat.value}</h3>
+            <p><span> <span className='ic'>{stat.icon}</span> {stat.title}</span>  </p>
+              </div>
+              <div className={`stat-change ${stat.change.includes("+")?'positive':'negative'}`}>
+              {stat.change}
+
+              </div>
+              </div>
             ))}
           </div>
 
-          {/* CHART SECTION */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            {/* Bar Chart */}
-            <div className="bg-white rounded-xl p-6 shadow-md border">
-              <h2 className="font-semibold text-gray-800 text-lg mb-4">
-                Sales Data
-              </h2>
-              <Chart
-                type="bar"
-                data={chartData}
-                options={chartOptions}
-                className="w-full h-72"
-              />
-            </div>
+            {/* Charts and additional content */}
+            <div className="content-grid">
 
-            {/* Pie Chart */}
-            <div className="bg-white rounded-xl p-6 shadow-md border">
-              <h2 className="font-semibold text-gray-800 text-lg mb-4">
-                Products Data
-              </h2>
-              <Chart
-                type="pie"
-                data={pieData}
-                options={piechartOptions}
-                className="w-full h-60"
-              />
-            </div>
-          </div>
+              {/* Chart Section */}
 
-          {/* NEW ELEMENTS BELOW */}
-
-          {/* ---------------- RECENT ORDERS TABLE ---------------- */}
-          <div className="bg-white p-6 rounded-xl shadow-md border mb-10">
-            <h2 className="font-semibold text-gray-800 text-lg mb-4">
-              Recent Orders
-            </h2>
-
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2">Order ID</th>
-                  <th>Customer</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentOrders.map((order) => (
-                  <tr key={order.id} className="border-b text-gray-700">
-                    <td className="py-2">{order.id}</td>
-                    <td>{order.customer}</td>
-                    <td>{order.amount}</td>
-                    <td>
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm ${
-                          order.status === "Delivered"
-                            ? "bg-green-100 text-green-600"
-                            : order.status === "Pending"
-                            ? "bg-yellow-100 text-yellow-600"
-                            : "bg-red-100 text-red-600"
-                        }`}
-                      >
-                        {order.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* ---------------- TOP PRODUCTS + PROGRESS CARDS ---------------- */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-
-            {/* Top Products */}
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <h2 className="font-semibold text-gray-800 text-lg mb-4">
-                Top Selling Products
-              </h2>
-
-              {topProducts.map((product, i) => (
-                <div key={i} className="flex justify-between py-2 border-b">
-                  <span>{product.name}</span>
-                  <span className="font-semibold">{product.sales} sales</span>
+              <div className={`chart-container ${theme==="dark"?"light":"dark"}`}>
+                <div className={`chart-header ${theme==="dark"?"light":"dark"}`}>
+                  <h3>Revenue Overview</h3>
+                  <select defaultValue="last-week">
+                    <option value="last-week">Last Week</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="last-year">Last year</option>
+                  </select>
                 </div>
-              ))}
-            </div>
-
-            {/* Performance Stats */}
-            <div className="bg-white p-6 rounded-xl shadow-md border">
-              <h2 className="font-semibold text-gray-800 text-lg mb-4">
-                Performance Stats
-              </h2>
-
-              {/* Progress 1 */}
-              <p className="text-sm text-gray-600">Storage Usage</p>
-              <div className="w-full bg-gray-200 h-3 rounded-full mb-4">
-                <div className="w-2/3 bg-blue-500 h-3 rounded-full"></div>
+                <div className="chart-placeholder">
+                  <div className="chart-bars">
+                    <div className="bar" style={{height:'60%'}}></div>
+                     <div className="bar" style={{height:'45%'}}></div>
+                      <div className="bar" style={{height:'75%'}}></div>
+                       <div className="bar" style={{height:'50%'}}></div>
+                        <div className="bar" style={{height:'65%'}}></div>
+                         <div className="bar" style={{height:'80%'}}></div>
+                          <div className="bar" style={{height:'70%'}}></div>
+                    
+                  </div>
+                </div>
               </div>
+              {/* Recent Activity */}
+              <div className={`activity-container ${theme==="dark"?"light":"dark"}`}>
+                <div className={`activity-header ${theme==="dark"?"light":"dark"}`}>
+                
+                   <h3>Recent Activity</h3>
+                  <a href="#view-all">View All</a>
+                </div>
+                 
+                  <div className="activity-list">
+                  {recentActivities.map((activity,index)=>(
+                    <div key={index} className='activity-item'>
+                    <div className="activity-avatar">
+                      {activity.user.charAt(0)}
+                    </div>
+                    <div className={`activity-details ${theme==="dark"?"light":"dark"}`}>
+                      <p>
+                        <span className={`activity-user ${theme==="dark"?"light":"dark"}`}>{activity.user}</span>&nbsp;{activity.action}
+                      </p>
+                      <span className={`activity-time ${theme==="dark"?"light":"dark"}`}>{activity.time}</span>
+                    </div>
+                    </div>
+                  ))}
 
-              <p className="text-sm text-gray-600">Website Traffic</p>
-              <div className="w-full bg-gray-200 h-3 rounded-full mb-4">
-                <div className="w-3/4 bg-green-500 h-3 rounded-full"></div>
+
+                  </div>
+                </div>
               </div>
+              {/* Additional Section */}
 
-              <p className="text-sm text-gray-600">Server Load</p>
-              <div className="w-full bg-gray-200 h-3 rounded-full">
-                <div className="w-1/2 bg-orange-500 h-3 rounded-full"></div>
+              <div className="additional-section">
+                <div className={`quick-actions ${theme==="dark"?"light":"dark"}`}>
+                  <h3>Quick Actions</h3>
+                  <div className="action-buttons">
+                    <button className='action-btn'>
+                    Add Product
+                    </button>
+                    <button className='action-btn'>
+                    Generate Report
+                    </button>
+                    <button className='action-btn'>
+                    Send Message
+                    </button>
+                    <button className='action-btn'>
+                    Manage users
+                    </button>
+                  </div>
+                </div>
+
+                  <div className={`upcoming-events ${theme==="dark"?"light":"dark"}`}>
+                    <h3>Upcoming Events</h3>
+                    <div className="event-item">
+                      <div className="event-date">
+                        <span className='event-day'>15</span>
+                        <span className="event-month">Sep</span>
+                      </div>
+                      <div className="event-details">
+                        <p>Team Meeting</p>
+                        <span>10:00 AM-Conferenece Room</span>
+                      </div>
+                    </div>
+                    <div className="event-item">
+                      <div className="event-date">
+                        <span className="event-day">18</span>
+                        <span className="event-month">Sep</span>
+                      </div>
+                      <div className="event-details">
+                        <p>Product Launch</p>
+                        <span>2:00 Main Hall</span>
+                      </div>
+                    </div>
+                  </div>
+
               </div>
-            </div>
-          </div>
-
-          {/* ---------------- USER ACTIVITY TIMELINE ---------------- */}
-          <div className="bg-white p-6 rounded-xl shadow-md border mb-10">
-            <h2 className="font-semibold text-gray-800 text-lg mb-4">
-              User Activity Timeline
-            </h2>
-
-            <ul className="border-l-2 border-blue-500 pl-4">
-              <li className="mb-5">
-                <strong className="text-blue-600">Riddhi</strong> placed an
-                order – <span className="text-gray-500">5 mins ago</span>
-              </li>
-              <li className="mb-5">
-                <strong className="text-blue-600">Aman</strong> registered –{" "}
-                <span className="text-gray-500">20 mins ago</span>
-              </li>
-              <li className="mb-5">
-                <strong className="text-blue-600">Priya</strong> added items to
-                cart – <span className="text-gray-500">1 hr ago</span>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </>
-  );
+  )
 };
 
 export default Dashboard;
+
+
