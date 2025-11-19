@@ -1,0 +1,10 @@
+.btn{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 8px 15px 8px 15px;
+    background-color: #09c7fb;
+    background-image: linear-gradient(315deg, #412076 0%, #bf175a 74%);
+    color:white;
+    font-size: large;
+}

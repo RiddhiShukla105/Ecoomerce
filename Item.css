@@ -1,0 +1,85 @@
+.item-container{
+    padding-bottom: 15%;
+    padding-top: 5%;
+}
+.pic img{
+    width: 100%;
+    height: 100%;
+    margin-left: 5%;
+
+}
+.pic img:hover{
+     transform: scale(1.4);
+     padding-top: 8%;
+}
+.hover-zoom img:hover {
+  transform: scale(1.25);
+}
+.right{
+    padding-left: 13%;
+}
+.brand{
+    font-size: 46px;
+    font-weight: 900;
+}
+.pg{
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 4%;
+}
+.size{
+    display: flex;
+}
+.size h4{
+    color:rgb(85, 6, 6);
+    background: #dddd;
+    font-size: 28px;
+    margin-right: 5%;
+    padding: 3%;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: 3%;
+}
+.btns{
+    display: flex;
+    margin-top: 4%;
+}
+.r1{
+    margin-left: 25%;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1.2%;
+    background: black;
+    border:0;
+
+}
+
+.l1{
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1.2%;
+    background: black;
+    border:0;
+    
+}
+
+.size-btn {
+  border: 1px solid #ccc;
+  background: white;
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.size-btn:hover {
+  background-color: #f8d7da;
+}
+
+.size-btn.active {
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+

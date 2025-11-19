@@ -1,0 +1,300 @@
+.hi{
+   overflow-x: hidden;
+    padding-bottom: 10%;
+}
+.slide-container {
+  width: 100%;
+  max-height: 400px; 
+  overflow: hidden;  /* prevent extra space */
+  margin-bottom: 20px; /* control gap after slideshow */
+}
+
+.slide-container img {
+  width: 100%;
+  height: 400px;     /* fixed height */
+  object-fit: cover; /* prevents distortion & removes white space */
+  display: block;
+}
+/* .product_card{
+    color:#333;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    column-gap: 10px;
+    row-gap: 40px;
+    width:100%;
+    margin-left: 5%;
+}
+@media only screen and (max-width:600px){
+  .product_card{
+    margin-left:10% !important;
+    display: grid;
+  grid-template-columns: 1fr !important;
+  }
+  
+}
+@media only screen and (min-width:768px) and (max-width: 1024px) {
+   .product_card{
+    margin-left:10% !important;
+    display: grid;
+  grid-template-columns: repeat(2,1fr) !important;
+  }
+}
+.product_card .card-body{
+    background: white;
+} */
+
+
+
+/* Container for icon + dropdown */
+.filter-container {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* Floating filter icon */
+.filter-icon {
+  background: #00bcd4;
+  color: white;
+  font-size: 1.3rem;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 188, 212, 0.4);
+  transition: all 0.3s ease;
+}
+
+.filter-icon:hover {
+  background: #0097a7;
+  transform: scale(1.05);
+}
+
+/* Dropdown menu */
+.price_filter_b {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 260px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  z-index: 10;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Smooth appearance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.filter-header i {
+  color: #00bcd4;
+  font-size: 1.2rem;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filter-section h4 {
+  color: #00bcd4;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.filter-section label {
+  font-size: 0.95rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #00bcd4;
+  transform: scale(1.2);
+}
+
+/* Button */
+.apply-btn {
+  background: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.apply-btn:hover {
+  background: #0097a7;
+  box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3);
+}
+
+
+
+
+.cardd {
+  padding: 2rem;
+  background-color:#ffff;
+  border-radius: 1rem;
+}
+
+.dataview-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+
+/* ✅ Proper grid layout */
+.p-dataview .p-dataview-content > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6rem;
+}
+
+/* ✅ Product Card Base */
+.product-card {
+  width: 250px;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ✅ Product Image */
+.product-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* ✅ Product Title */
+.product-card h3 {
+  margin-top: 0.8rem;
+  margin-bottom: 0.4rem;
+  font-weight: 800;
+  color: #334155;
+  font-size: 1.4rem;
+  letter-spacing: 0.8px;
+}
+
+/* ✅ Rating - same spacing as first image */
+.p-rating {
+  margin-bottom: 0.5rem;
+  color: #00bcd4; /* amber color */
+  margin-left: 3rem;
+}
+
+.p-rating .pi-star {
+  font-size: 2rem;
+}
+
+/* ✅ Price styling */
+.product-price {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #334155;
+  margin-left: -8rem;
+  /* margin-top: 3rem; */
+}
+
+/* ✅ Floating Cart Button (matches first image) */
+.cart-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: #00bcd4 !important; /* teal */
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.cart-btn:hover {
+  background-color: #0097a7 !important; /* darker teal on hover */
+  transform: scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+  .product-card {
+    width: 180px;
+  }
+
+  .p-dataview .p-dataview-content > div {
+    gap: 2rem;
+  }
+  .product-price {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #334155;
+  padding-left: 2rem;
+}
+.p-rating {
+  margin-bottom: 0.5rem;
+  color: #00bcd4; /* amber color */
+  margin-left: 0.1rem;
+}
+
+}

@@ -1,0 +1,80 @@
+.cart_container{
+    padding-bottom: 9%;
+}
+
+.cart_bill{
+    width: 100%;
+    padding-bottom: 10%;
+}
+
+.ccart {
+  font-size: 48px;
+  margin: 5% 2% 2% 5%;
+  font-weight: 700;
+  text-align: center;
+}
+
+.cart_table {
+  width: 95%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 5px 5px 10px rgba(0.3, 0.3, 0.2, 0.3);
+}
+.cart_table th,
+.cart_table td {
+  border: 1px solid #ddd;
+  padding: 16px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.chead {
+  font-size: 22px;
+  font-weight: 600;
+}
+.citem{
+    font-size: 24px;
+}
+
+.cart_img {
+  height: 60px;
+  border-radius: 8px;
+}
+.cbtn{
+    border: 0;
+    width: 40%;
+    font-size: 28px;
+}
+.c1{
+    background:transparent;
+    color: green;
+}
+.c2{
+    background: transparent;
+    color: red;
+    font-size: 36px;
+}
+.c3{
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.bcart img {
+  width: 80%;
+  max-height: 500px;
+  display: block;
+  margin: 0 auto;
+}
+.pay{
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+.pay Button{
+    background: rgb(221, 26, 91);
+    font-size: larger;
+}
+.pay Button:hover{
+    background: rgb(221, 26, 91);
+    cursor: pointer;
+}
